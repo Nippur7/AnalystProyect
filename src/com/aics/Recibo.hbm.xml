@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 16/12/2023 00:26:12 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.aics.Recibo" table="recibo" catalog="aics" optimistic-lock="version">
+        <id name="idRecibo" type="java.lang.Integer">
+            <column name="idRecibo" />
+            <generator class="identity" />
+        </id>
+        <property name="idAlumno" type="java.lang.Integer">
+            <column name="idAlumno" />
+        </property>
+        <property name="idCurso" type="java.lang.Integer">
+            <column name="idCurso" />
+        </property>
+        <property name="numRecibo" type="java.lang.Long">
+            <column name="Num_Recibo" />
+        </property>
+        <property name="monto" type="java.lang.Long">
+            <column name="Monto" precision="10" scale="0" />
+        </property>
+        <property name="createStamp" type="timestamp">
+            <column name="create_stamp" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 16/12/2023 00:26:12 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.aics.Profesor" table="profesor" catalog="aics" optimistic-lock="version">
+        <id name="idprofesor" type="java.lang.Integer">
+            <column name="idprofesor" />
+            <generator class="identity" />
+        </id>
+        <property name="dni" type="java.lang.Integer">
+            <column name="dni" />
+        </property>
+        <property name="apellido" type="string">
+            <column name="Apellido" length="45" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="Nombre" length="45" />
+        </property>
+        <property name="fechaNac" type="date">
+            <column name="Fecha_Nac" length="10" />
+        </property>
+        <property name="estado" type="java.lang.Byte">
+            <column name="Estado" />
+        </property>
+        <property name="tel" type="string">
+            <column name="tel" length="20" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="45" />
+        </property>
+        <property name="createStamp" type="timestamp">
+            <column name="create_stamp" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>

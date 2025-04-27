@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 16/12/2023 00:26:12 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.aics.Curso" table="curso" catalog="aics" optimistic-lock="version">
+        <id name="idcursos" type="java.lang.Integer">
+            <column name="idcursos" />
+            <generator class="identity" />
+        </id>
+        <property name="curso" type="string">
+            <column name="Curso" length="45" />
+        </property>
+        <property name="inicio" type="date">
+            <column name="Inicio" length="10" />
+        </property>
+        <property name="HInicio" type="string">
+            <column name="H_inicio" length="45" />
+        </property>
+        <property name="HFin" type="string">
+            <column name="H_fin" length="45" />
+        </property>
+        <property name="capacidad" type="java.lang.Integer">
+            <column name="Capacidad" />
+        </property>
+        <property name="finalizacion" type="date">
+            <column name="Finalizacion" length="10" />
+        </property>
+        <property name="cursoscol" type="string">
+            <column name="cursoscol" length="45" />
+        </property>
+        <property name="idProfesor" type="java.lang.Integer">
+            <column name="idProfesor" />
+        </property>
+        <property name="idAlumno" type="java.lang.Integer">
+            <column name="idAlumno" />
+        </property>
+        <property name="createStamp" type="timestamp">
+            <column name="create_stamp" length="19" />
+        </property>
+    </class>
+</hibernate-mapping>
