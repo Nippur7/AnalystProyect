@@ -6,7 +6,7 @@
 package CRUD;
 
 import CRUD.Conectar;
-import com.aics.User;
+import com.aics.model.User;
 import aics.vistas.login;
 
 /**

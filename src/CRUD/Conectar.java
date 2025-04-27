@@ -2,7 +2,7 @@ package CRUD;
 
 
 import CRUD.NewHibernateUtil;
-import com.aics.User;
+import com.aics.model.User;
 import java.util.List;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;

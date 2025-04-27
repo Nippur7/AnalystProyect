@@ -1,33 +1,32 @@
-<?xml version="1.0"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 16/12/2023 00:26:12 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="com.aics.Asistencia" table="asistencia" catalog="aics" optimistic-lock="version">
-        <id name="idasistencia" type="java.lang.Integer">
-            <column name="idasistencia" />
-            <generator class="identity" />
-        </id>
-        <property name="idAlumno" type="java.lang.Integer">
-            <column name="idAlumno" />
-        </property>
-        <property name="idCurso" type="java.lang.Integer">
-            <column name="idCurso" />
-        </property>
-        <property name="fecha" type="date">
-            <column name="Fecha" length="10" />
-        </property>
-        <property name="horario" type="time">
-            <column name="Horario" length="8" />
-        </property>
-        <property name="marca" type="string">
-            <column name="Marca" length="10" />
-        </property>
-        <property name="asistenciacol" type="string">
-            <column name="asistenciacol" length="45" />
-        </property>
-        <property name="createStamp" type="timestamp">
-            <column name="create_stamp" length="19" />
-        </property>
-    </class>
+  <class catalog="aics" name="com.aics.model.Asistencia" optimistic-lock="version" table="asistencia">
+    <id name="idasistencia" type="java.lang.Integer">
+      <column name="idasistencia"/>
+      <generator class="identity"/>
+    </id>
+    <property name="idAlumno" type="java.lang.Integer">
+      <column name="idAlumno"/>
+    </property>
+    <property name="idCurso" type="java.lang.Integer">
+      <column name="idCurso"/>
+    </property>
+    <property name="fecha" type="date">
+      <column length="10" name="Fecha"/>
+    </property>
+    <property name="horario" type="time">
+      <column length="8" name="Horario"/>
+    </property>
+    <property name="marca" type="string">
+      <column length="10" name="Marca"/>
+    </property>
+    <property name="asistenciacol" type="string">
+      <column length="45" name="asistenciacol"/>
+    </property>
+    <property name="createStamp" type="timestamp">
+      <column length="19" name="create_stamp"/>
+    </property>
+  </class>
 </hibernate-mapping>

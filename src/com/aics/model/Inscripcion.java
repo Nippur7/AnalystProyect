@@ -1,4 +1,4 @@
-package com.aics;
+package com.aics.model;
 // Generated 16/12/2023 00:26:11 by Hibernate Tools 4.3.1
 
 

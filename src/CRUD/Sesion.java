@@ -5,7 +5,7 @@
  */
 package CRUD;
 
-import com.aics.User;
+import com.aics.model.User;
 
 /**
  *

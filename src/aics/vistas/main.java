@@ -6,7 +6,7 @@
 package aics.vistas;
 
 import CRUD.Conectar;
-import com.aics.User;
+import com.aics.model.User;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Image;
