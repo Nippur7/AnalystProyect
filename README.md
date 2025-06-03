@@ -59,7 +59,7 @@ src/
 
 1. Clonar este repositorio:
    ```bash
-   git clone https://github.com/TuUsuarioAICS/proyecto-gestion-educativa.git
+   git clone https://github.com/Nippur7/AnalystProyect
    ```
 2. Importar el proyecto en NetBeans.
 3. Configurar la conexión a la base de datos en `hibernate.cfg.xml`.
