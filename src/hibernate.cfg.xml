@@ -56,5 +56,6 @@ Contributor(s):
     <mapping resource="com/aics/Recibo.hbm.xml"/>
     <mapping resource="com/aics/User.hbm.xml"/>
     <mapping resource="com/aics/Pagos.hbm.xml"/>
+    <mapping class="com.aics.model.CursoHorario"/>
   </session-factory>
 </hibernate-configuration>

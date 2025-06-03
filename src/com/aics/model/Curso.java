@@ -13,29 +13,31 @@ public class Curso  implements java.io.Serializable {
      private Integer idcursos;
      private String curso;
      private Date inicio;
-     private String HInicio;
-     private String HFin;
+//     private String HInicio;
+//     private String HFin;
      private Integer capacidad;
      private Date finalizacion;
-     private String cursoscol;
-     private Integer idProfesor;
-     private Integer idAlumno;
+     private String estado_curso;
+     private Integer idProfesor;     
+//     private Integer idAlumno;
      private Date createStamp;
+     private Date modStamp;
 
     public Curso() {
     }
 
-    public Curso(String curso, Date inicio, String HInicio, String HFin, Integer capacidad, Date finalizacion, String cursoscol, Integer idProfesor, Integer idAlumno, Date createStamp) {
+    public Curso(String curso, Date inicio, Integer capacidad, Date finalizacion, String estado_curso, Integer idProfesor, Date create_stamp, Date mod_stamp) {
        this.curso = curso;
        this.inicio = inicio;
-       this.HInicio = HInicio;
-       this.HFin = HFin;
+       //this.HInicio = HInicio;
+       //this.HFin = HFin;
        this.capacidad = capacidad;
        this.finalizacion = finalizacion;
-       this.cursoscol = cursoscol;
+       this.estado_curso = estado_curso;
        this.idProfesor = idProfesor;
-       this.idAlumno = idAlumno;
-       this.createStamp = createStamp;
+       //this.idAlumno = idAlumno;
+       this.createStamp = create_stamp;
+       this.modStamp = mod_stamp;
     }
    
     public Integer getIdcursos() {
@@ -59,20 +61,7 @@ public class Curso  implements java.io.Serializable {
     public void setInicio(Date inicio) {
         this.inicio = inicio;
     }
-    public String getHInicio() {
-        return this.HInicio;
-    }
-    
-    public void setHInicio(String HInicio) {
-        this.HInicio = HInicio;
-    }
-    public String getHFin() {
-        return this.HFin;
-    }
-    
-    public void setHFin(String HFin) {
-        this.HFin = HFin;
-    }
+            
     public Integer getCapacidad() {
         return this.capacidad;
     }
@@ -87,12 +76,12 @@ public class Curso  implements java.io.Serializable {
     public void setFinalizacion(Date finalizacion) {
         this.finalizacion = finalizacion;
     }
-    public String getCursoscol() {
-        return this.cursoscol;
+    public String getEstado_curso() {
+        return this.estado_curso;
     }
     
-    public void setCursoscol(String cursoscol) {
-        this.cursoscol = cursoscol;
+    public void setEstado_curso(String estado_curso) {
+        this.estado_curso = estado_curso;
     }
     public Integer getIdProfesor() {
         return this.idProfesor;
@@ -101,21 +90,22 @@ public class Curso  implements java.io.Serializable {
     public void setIdProfesor(Integer idProfesor) {
         this.idProfesor = idProfesor;
     }
-    public Integer getIdAlumno() {
-        return this.idAlumno;
-    }
-    
-    public void setIdAlumno(Integer idAlumno) {
-        this.idAlumno = idAlumno;
-    }
+
     public Date getCreateStamp() {
         return this.createStamp;
     }
     
-    public void setCreateStamp(Date createStamp) {
-        this.createStamp = createStamp;
+    public void setCreateStamp(Date create_stamp) {
+        this.createStamp = create_stamp;
     }
 
+    public Date getModStamp() {
+        return this.modStamp;
+    }
+    
+    public void setModStamp(Date mod_stamp) {
+        this.modStamp = mod_stamp;
+    }
 
 
 

@@ -13,29 +13,23 @@
     <property name="inicio" type="date">
       <column length="10" name="Inicio"/>
     </property>
-    <property name="HInicio" type="string">
-      <column length="45" name="H_inicio"/>
-    </property>
-    <property name="HFin" type="string">
-      <column length="45" name="H_fin"/>
-    </property>
     <property name="capacidad" type="java.lang.Integer">
       <column name="Capacidad"/>
     </property>
     <property name="finalizacion" type="date">
       <column length="10" name="Finalizacion"/>
     </property>
-    <property name="cursoscol" type="string">
-      <column length="45" name="cursoscol"/>
+    <property name="estado_curso" type="string">
+      <column length="45" name="estado_curso"/>
     </property>
     <property name="idProfesor" type="java.lang.Integer">
       <column name="idProfesor"/>
     </property>
-    <property name="idAlumno" type="java.lang.Integer">
-      <column name="idAlumno"/>
-    </property>
     <property name="createStamp" type="timestamp">
       <column length="19" name="create_stamp"/>
+    </property>
+    <property name="modStamp" type="timestamp">
+      <column length="19" name="mod_stamp"/>
     </property>
   </class>
 </hibernate-mapping>
