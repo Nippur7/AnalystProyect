@@ -5,8 +5,8 @@
  */
 package controller;
 
-import com.aics.model.SesionUsuario;
-import com.aics.view.PantallaBloqueo;
+import model.SesionUsuario;
+import view.PantallaBloqueo;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
