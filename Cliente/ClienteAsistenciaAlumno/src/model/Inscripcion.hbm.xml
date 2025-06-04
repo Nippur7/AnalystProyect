@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 03/06/2025 21:07:19 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Inscripcion" table="inscripcion" catalog="aics" optimistic-lock="version">
+        <id name="idinscripciones" type="java.lang.Integer">
+            <column name="idinscripciones" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="alumno" class="model.Alumno" fetch="select">
+            <column name="IdAlumnos" />
+        </many-to-one>
+        <many-to-one name="curso" class="model.Curso" fetch="select">
+            <column name="idCursos" />
+        </many-to-one>
+        <property name="estado" type="java.lang.Boolean">
+            <column name="estado" />
+        </property>
+        <property name="createStamp" type="timestamp">
+            <column name="create_stamp" length="19" />
+        </property>
+        <property name="modTimestamp" type="timestamp">
+            <column name="mod_timestamp" length="19" />
+        </property>
+        <set name="asistencias" table="asistencia" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idInscripcion" />
+            </key>
+            <one-to-many class="model.Asistencia" />
+        </set>
+    </class>
+</hibernate-mapping>
