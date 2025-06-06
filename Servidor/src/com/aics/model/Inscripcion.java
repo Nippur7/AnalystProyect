@@ -13,17 +13,19 @@ public class Inscripcion  implements java.io.Serializable {
      private Integer idinscripciones;
      private Integer idCursos;
      private Integer idAlumnos;
-     private String inscripcionescol;
+     private Integer estado; //en tabla tinyint(4)
      private Date createStamp;
+     private Date modTimestamp;
 
     public Inscripcion() {
     }
 
-    public Inscripcion(Integer idCursos, Integer idAlumnos, String inscripcionescol, Date createStamp) {
+    public Inscripcion(Integer idCursos, Integer idAlumnos, Integer estado, Date createStamp, Date modTimestamp) {
        this.idCursos = idCursos;
        this.idAlumnos = idAlumnos;
-       this.inscripcionescol = inscripcionescol;
+       this.estado = estado;
        this.createStamp = createStamp;
+       this.modTimestamp = modTimestamp;
     }
    
     public Integer getIdinscripciones() {
@@ -47,12 +49,12 @@ public class Inscripcion  implements java.io.Serializable {
     public void setIdAlumnos(Integer idAlumnos) {
         this.idAlumnos = idAlumnos;
     }
-    public String getInscripcionescol() {
-        return this.inscripcionescol;
+    public Integer getEstado() {
+        return this.estado;
     }
     
-    public void setInscripcionescol(String inscripcionescol) {
-        this.inscripcionescol = inscripcionescol;
+    public void setEstado(Integer estado) {
+        this.estado = estado;
     }
     public Date getCreateStamp() {
         return this.createStamp;
@@ -60,6 +62,14 @@ public class Inscripcion  implements java.io.Serializable {
     
     public void setCreateStamp(Date createStamp) {
         this.createStamp = createStamp;
+    }
+    
+    public Date getModTimestamp() {
+        return this.modTimestamp;
+    }
+    
+    public void setModTimestamp(Date modTimestamp) {
+        this.modTimestamp = modTimestamp;
     }
 
 
