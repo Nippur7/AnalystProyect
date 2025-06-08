@@ -13,11 +13,11 @@ public class Inscripcion implements java.io.Serializable {
     private Integer idinscripciones;
 
     @ManyToOne
-    @JoinColumn(name = "idCursos", referencedColumnName = "idCursos")
+    @JoinColumn(name = "idCursos", referencedColumnName = "idcursos")
     private Curso curso;
 
     @ManyToOne
-    @JoinColumn(name = "IdAlumno", referencedColumnName = "idAlumno")
+    @JoinColumn(name = "IdAlumnos", referencedColumnName = "idAlumno")
     private Alumno alumno;
 
     @Column(name = "estado")

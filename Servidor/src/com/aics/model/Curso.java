@@ -30,7 +30,8 @@ public class Curso implements Serializable {
 
     @Column(name = "estado_curso")
     private String estado_curso;
-
+    
+    
     @Column(name = "idProfesor")
     private Integer idProfesor;
 
