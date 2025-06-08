@@ -515,7 +515,7 @@ public class Academics extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Alumnos", jPAlumnos);
 
-        jPanel2.setBackground(new java.awt.Color(51, 153, 255));
+        jPanel2.setBackground(new java.awt.Color(19, 137, 196));
 
         jTableCursos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -530,7 +530,7 @@ public class Academics extends javax.swing.JPanel {
         ));
         jScrollPane3.setViewportView(jTableCursos);
 
-        jButton5.setText("jButton5");
+        jButton5.setText("Filtrar Cursos");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -558,7 +558,7 @@ public class Academics extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(51, 153, 255));
+        jPanel3.setBackground(new java.awt.Color(19, 137, 196));
 
         jTableAlumnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -573,7 +573,7 @@ public class Academics extends javax.swing.JPanel {
         ));
         jScrollPane4.setViewportView(jTableAlumnos);
 
-        jButton6.setText("jButton6");
+        jButton6.setText("Filtrar Alumnos");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -601,7 +601,7 @@ public class Academics extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel7.setBackground(new java.awt.Color(51, 153, 255));
+        jPanel7.setBackground(new java.awt.Color(19, 137, 196));
 
         jScrollPane5.setViewportView(jTree1);
 
