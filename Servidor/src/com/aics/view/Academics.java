@@ -19,6 +19,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -37,6 +39,9 @@ public class Academics extends javax.swing.JPanel {
     public Academics() {
         initComponents();
         inicializarDiaCheckboxes();
+        cargarCursosTabla("");
+        cargarAlumnosTabla("");
+        cargarArbolInscripciones();
         jButton4.addActionListener(evt -> {
             String filtro = jTextField6.getText().trim();
             cargarAlumnosEnTabla(filtro);
@@ -124,12 +129,12 @@ public class Academics extends javax.swing.JPanel {
         jPInscripciones = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        jTableCursos = new javax.swing.JTable();
         jButton5 = new javax.swing.JButton();
         jTextField7 = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        jTableAlumnos = new javax.swing.JTable();
         jButton6 = new javax.swing.JButton();
         jTextField8 = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
@@ -524,18 +529,18 @@ public class Academics extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(51, 153, 255));
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        jTableCursos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Id Curso", "Nombre", "Inicio", "Fin", "Capacidad", "Dias", "Horario"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(jTableCursos);
 
         jButton5.setText("jButton5");
 
@@ -569,18 +574,18 @@ public class Academics extends javax.swing.JPanel {
 
         jPanel3.setBackground(new java.awt.Color(51, 153, 255));
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        jTableAlumnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Id", "DNI", "Apellido", "Nombre", "F. Nacimiento", "Estado", "Tel", "Correo", "F. Creacion"
             }
         ));
-        jScrollPane4.setViewportView(jTable4);
+        jScrollPane4.setViewportView(jTableAlumnos);
 
         jButton6.setText("jButton6");
 
@@ -764,8 +769,8 @@ public class Academics extends javax.swing.JPanel {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
+    private javax.swing.JTable jTableAlumnos;
+    private javax.swing.JTable jTableCursos;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
@@ -874,7 +879,7 @@ private void cargarAlumnosEnTabla(String filtro) {
 
     Session session = NewHibernateUtil.getSessionFactory().openSession();
 
-    String hql = "FROM Alumno WHERE "
+    /*String hql = "FROM Alumno WHERE "
                + "CAST(idAlumno AS string) LIKE :filtro OR "
                + "LOWER(dni) LIKE :filtro OR "
                + "LOWER(apellido) LIKE :filtro OR "
@@ -882,7 +887,12 @@ private void cargarAlumnosEnTabla(String filtro) {
 
     List<Alumno> alumnos = session.createQuery(hql)
         .setParameter("filtro", "%" + filtro.toLowerCase() + "%")
-        .list();
+        .list();*/
+    List<Alumno> alumnos = session.createQuery(
+                "FROM Alumno WHERE estado = 1 AND (apellido LIKE :filtro OR nombre LIKE :filtro OR dni LIKE :filtro)"
+                )
+                .setParameter("filtro", "%" + filtro + "%")
+                .list();
 
     for (Alumno a : alumnos) {
         model.addRow(new Object[]{
@@ -1014,6 +1024,88 @@ private void guardarCurso() {
             javax.swing.JOptionPane.showMessageDialog(this, "Error al guardar: " + ex.getMessage());
         }
     }
+
+    private void cargarCursosTabla(String filtro) {
+        DefaultTableModel model = (DefaultTableModel) jTableCursos.getModel();
+        model.setRowCount(0);
+
+        try { 
+            Session session = NewHibernateUtil.getSessionFactory().openSession(); 
+            List<Curso> cursos = session.createQuery(
+                "FROM Curso WHERE curso LIKE :filtro")
+                .setParameter("filtro", "%" + filtro + "%")
+                .list();
+
+            for (Curso c : cursos) {
+                model.addRow(new Object[]{
+                    c.getIdcursos(), c.getCurso(), c.getInicio(), c.getFinalizacion(), c.getCapacidad()
+                });
+            }
+        }catch (Exception ex) {
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al guardar: " + ex.getMessage());
+        }
+    }
+    
+        private void cargarAlumnosTabla(String filtro) {
+        DefaultTableModel model = (DefaultTableModel) jTableAlumnos.getModel();
+        model.setRowCount(0);
+
+        try { 
+            Session session = NewHibernateUtil.getSessionFactory().openSession(); 
+            List<Alumno> alumnos = session.createQuery(
+                "FROM Alumno WHERE estado = 1 AND (apellido LIKE :filtro OR nombre LIKE :filtro OR dni LIKE :filtro)"
+                )
+                .setParameter("filtro", "%" + filtro + "%")
+                .list();
+
+            for (Alumno a : alumnos) {
+                model.addRow(new Object[]{
+                    a.getIdAlumno(), a.getDni(), a.getApellido(), a.getNombre()
+                });
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al guardar: " + ex.getMessage());
+        }
+    }
+
+        private void cargarArbolInscripciones() {
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Cursos");
+
+        try {
+            Session session = NewHibernateUtil.getSessionFactory().openSession(); 
+            List<Curso> cursos = session.createQuery("FROM Curso").list();
+
+            for (Curso curso : cursos) {
+                DefaultMutableTreeNode cursoNode = new DefaultMutableTreeNode("[" + curso.getIdcursos() + "] " + curso.getCurso());
+
+                List<Object[]> resultados = session.createQuery(
+                    /*"SELECT a.idalumno, a.apellido, a.nombre FROM Inscripcion i JOIN Alumno a ON i.IdAlumnos = a.idalumno WHERE i.curso.idCursos = :idCurso AND i.estado = 1") */
+                    "SELECT a.idAlumno, a.apellido, a.nombre " +
+                    "FROM Inscripcion i JOIN i.alumno a " +
+                    "WHERE i.curso.idcursos = :idCurso AND i.estado = 1")
+                    .setParameter("idCurso", curso.getIdcursos())
+                    .list();/**/
+
+                for (Object[] fila : resultados) {
+                    Integer id = (Integer) fila[0];
+                    String apellido = (String) fila[1];
+                    String nombre = (String) fila[2];
+                    cursoNode.add(new DefaultMutableTreeNode("[ID: " + id + "] " + apellido + ", " + nombre));
+                }
+
+                root.add(cursoNode);
+            }
+
+            jTree1.setModel(new DefaultTreeModel(root));
+            if (session != null && session.isOpen()) session.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al guardar: " + ex.getMessage());
+        } 
+    }    
+    
 
 
 }

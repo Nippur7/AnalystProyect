@@ -48,9 +48,9 @@ Contributor(s):
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.show_sql">true</property>
-    <mapping resource="com/aics/Inscripcion.hbm.xml"/>
-    <mapping resource="com/aics/Curso.hbm.xml"/>
-    <mapping resource="com/aics/Alumno.hbm.xml"/>
+    <mapping class="com.aics.model.Inscripcion"/>
+    <mapping class="com.aics.model.Curso"/>
+    <mapping class="com.aics.model.Alumno"/>
     <mapping resource="com/aics/Asistencia.hbm.xml"/>
     <mapping resource="com/aics/Profesor.hbm.xml"/>
     <mapping resource="com/aics/Recibo.hbm.xml"/>

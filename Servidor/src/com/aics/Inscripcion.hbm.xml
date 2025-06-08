@@ -13,11 +13,14 @@
     <property name="idAlumnos" type="java.lang.Integer">
       <column name="IdAlumnos"/>
     </property>
-    <property name="inscripcionescol" type="string">
-      <column length="45" name="inscripcionescol"/>
+    <property name="estado" type="integer">
+      <column length="4" name="estado"/>
     </property>
     <property name="createStamp" type="timestamp">
       <column length="19" name="create_stamp"/>
+    </property>
+    <property name="modTimestamp" type="timestamp">
+      <column length="19" name="mod_timestamp"/>
     </property>
   </class>
 </hibernate-mapping>
