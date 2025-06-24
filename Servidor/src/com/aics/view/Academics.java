@@ -10,6 +10,7 @@ import com.aics.model.Alumno;
 import com.aics.model.Curso;
 import com.aics.model.CursoHorario;
 import com.aics.model.DiaSemana;
+import com.aics.model.Inscripcion;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -51,7 +52,9 @@ public class Academics extends javax.swing.JPanel {
             guardarAlumno();
             }
         });
-
+        jButton7.addActionListener(evt -> inscribirAlumno());
+        jButton8.addActionListener(evt -> borrarInscripcion());
+        /**/
 
         /*agregarListeners();*/
     }
@@ -1087,8 +1090,143 @@ private void guardarCurso() {
             ex.printStackTrace();
             javax.swing.JOptionPane.showMessageDialog(this, "Error al guardar: " + ex.getMessage());
         } 
-    }    
-    
+    }
+        
+    private void inscribirAlumno() {
+    int rowCurso = jTableCursos.getSelectedRow();
+    int rowAlumno = jTableAlumnos.getSelectedRow();
+
+    if (rowCurso == -1 || rowAlumno == -1) {
+        JOptionPane.showMessageDialog(this, "Debe seleccionar un curso y un alumno.");
+        return;
+    }
+
+    Integer idCurso = (Integer) jTableCursos.getValueAt(rowCurso, 0);
+    Integer idAlumno = (Integer) jTableAlumnos.getValueAt(rowAlumno, 0);
+
+    Session session = null;
+    Transaction tx = null;
+
+    try {
+        session = NewHibernateUtil.getSessionFactory().openSession();
+        tx = session.beginTransaction();
+
+        Curso curso = (Curso) session.get(Curso.class, idCurso);
+        Alumno alumno = (Alumno) session.get(Alumno.class, idAlumno);
+
+        // Verificar si ya existe inscripción activa
+        String hql = "FROM Inscripcion i WHERE i.curso = :curso AND i.alumno = :alumno AND i.estado = 1";
+        List<Inscripcion> existentes = session.createQuery(hql)
+            .setParameter("curso", curso)
+            .setParameter("alumno", alumno)
+            .list();
+
+        if (!existentes.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El alumno ya está inscrito activamente en este curso.");
+            return;
+        }
+
+        if (curso.getCapacidad() <= 0) {
+            JOptionPane.showMessageDialog(this, "El curso no tiene cupos disponibles.");
+            return;
+        }
+
+        // Crear nueva inscripción
+        Inscripcion nueva = new Inscripcion();
+        nueva.setCurso(curso);
+        nueva.setAlumno(alumno);
+        nueva.setEstado(1); // Activa
+        nueva.setCreateStamp(new Date());
+        nueva.setModTimestamp(new Date());
+
+        session.save(nueva);
+
+        // Actualizar cupo
+        curso.setCapacidad(curso.getCapacidad() - 1);
+        session.update(curso);
+
+        tx.commit();
+
+        JOptionPane.showMessageDialog(this, "Alumno inscrito correctamente.");
+        cargarArbolInscripciones();
+        cargarCursosEnTabla();
+
+    } catch (Exception e) {
+        if (tx != null) tx.rollback();
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error al inscribir: " + e.getMessage());
+    } finally {
+        if (session != null) session.close();
+    }
+    }
+   
+    private void borrarInscripcion() {
+    int rowCurso = jTableCursos.getSelectedRow();
+    int rowAlumno = jTableAlumnos.getSelectedRow();
+
+    if (rowCurso == -1 || rowAlumno == -1) {
+        JOptionPane.showMessageDialog(this, "Debe seleccionar un curso y un alumno.");
+        return;
+    }
+
+    int confirm = JOptionPane.showConfirmDialog(this,
+        "¿Está seguro de dar de baja esta inscripción?",
+        "Confirmación",
+        JOptionPane.YES_NO_OPTION);
+
+    if (confirm != JOptionPane.YES_OPTION) {
+        return;
+    }
+
+    Integer idCurso = (Integer) jTableCursos.getValueAt(rowCurso, 0);
+    Integer idAlumno = (Integer) jTableAlumnos.getValueAt(rowAlumno, 0);
+
+    Session session = null;
+    Transaction tx = null;
+
+    try {
+        session = NewHibernateUtil.getSessionFactory().openSession();
+        tx = session.beginTransaction();
+
+        Curso curso = (Curso) session.get(Curso.class, idCurso);
+        Alumno alumno = (Alumno) session.get(Alumno.class, idAlumno);
+
+        // Buscar inscripción activa
+        String hql = "FROM Inscripcion i WHERE i.curso = :curso AND i.alumno = :alumno AND i.estado = 1";
+        List<Inscripcion> lista = session.createQuery(hql)
+            .setParameter("curso", curso)
+            .setParameter("alumno", alumno)
+            .list();
+
+        if (lista.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No se encontró una inscripción activa.");
+            return;
+        }
+
+        Inscripcion inscripcion = lista.get(0);
+        inscripcion.setEstado(2); // Baja
+        inscripcion.setModTimestamp(new Date());
+
+        session.update(inscripcion);
+
+        // Restaurar 1 cupo al curso
+        curso.setCapacidad(curso.getCapacidad() + 1);
+        session.update(curso);
+
+        tx.commit();
+
+        JOptionPane.showMessageDialog(this, "Inscripción dada de baja correctamente.");
+        cargarArbolInscripciones();
+        cargarCursosEnTabla();
+
+    } catch (Exception e) {
+        if (tx != null) tx.rollback();
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error al dar de baja la inscripción: " + e.getMessage());
+    } finally {
+        if (session != null) session.close();
+    }
+}
 
 
 }
