@@ -21,6 +21,7 @@ public class PantallaBloqueo extends javax.swing.JPanel {
     private JButton btnLogout;
     private JLabel lblMensaje;
     private JLabel lblModo;
+    private JPanel panel;
     /**
      * Creates new form PantallaBloqueo1
      */
@@ -29,6 +30,8 @@ public class PantallaBloqueo extends javax.swing.JPanel {
         inicializarComponentes();
     }
 private void inicializarComponentes() {
+        
+        panel = new JPanel();
         setLayout(null);
         setBackground(new Color(30, 30, 30));
 
@@ -93,14 +96,53 @@ private void inicializarComponentes() {
         lblModo.setText(esClase ? "Modo: Clase" : "Modo: Práctica");
     }
 
-    public void mostrarPantallaDesbloqueada() {
+    /*public void mostrarPantallaDesbloqueada() {
         txtUsuario.setEnabled(false);
         txtPassword.setEnabled(false);
         btnLogin.setEnabled(false);
         btnLogout.setVisible(true);
+        //this.setVisible(false);
+        java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(this);
+        if (window instanceof javax.swing.JFrame) {
+            ((javax.swing.JFrame) window).setExtendedState(javax.swing.JFrame.ICONIFIED);
+        }
+    }*/
+    
+    public void mostrarPantallaDesbloqueada() {
+    // Ocultar campos de login
+    txtUsuario.setVisible(false);
+    txtPassword.setVisible(false);
+    btnLogin.setVisible(false);
+
+    // Mostrar botón de logout y mensajes
+    lblMensaje.setText("Sesión activa.");
+    lblMensaje.setVisible(true);
+    lblMensaje.setBounds(20, 20, 360, 25);
+
+    lblModo.setVisible(true);
+    lblModo.setBounds(20, 50, 360, 25);
+
+    btnLogout.setBounds(250, 100, 120, 30); // nueva ubicación
+    btnLogout.setVisible(true);
+
+    panel.setBackground(new Color(30, 30, 30));
+
+    // Redimensionar la ventana
+    java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(this);
+    if (window instanceof javax.swing.JFrame) {
+        javax.swing.JFrame frame = (javax.swing.JFrame) window;
+        frame.setSize(400, 150);
+        frame.setLocation(10, 10);
+        frame.setUndecorated(false);
     }
 
-    public void mostrarPantallaBloqueo() {
+    panel.revalidate();
+    panel.repaint();
+}
+
+
+
+    /*public void mostrarPantallaBloqueo() {
         txtUsuario.setText("");
         txtPassword.setText("");
         txtUsuario.setEnabled(true);
@@ -108,7 +150,33 @@ private void inicializarComponentes() {
         btnLogin.setEnabled(true);
         btnLogout.setVisible(false);
         lblModo.setText("");
+    }*/
+    
+    public void mostrarPantallaBloqueo() {
+    txtUsuario.setText("");
+    txtPassword.setText("");
+    txtUsuario.setVisible(true);
+    txtPassword.setVisible(true);
+    btnLogin.setVisible(true);
+    btnLogin.setEnabled(true);
+    btnLogout.setVisible(false);
+    lblMensaje.setText("");
+    lblModo.setText("");
+
+        java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(this);
+    if (window instanceof javax.swing.JFrame) {
+        javax.swing.JFrame frame = (javax.swing.JFrame) window;
+        frame.dispose();  // Necesario para aplicar cambios en el modo de ventana
+        frame.setUndecorated(true);
+        frame.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+        frame.setVisible(true);
     }
+
+
+    this.revalidate();
+    this.repaint();
+}
+
 
     public void setLoginAction(ActionListener listener) {
         btnLogin.addActionListener(listener);

@@ -30,7 +30,12 @@ public class LoginController {
 
                 if (sesion.iniciarSesion(user, pass)) {
                     vista.mostrarMensaje("Bienvenido " + user);
+                    
+                    boolean esClase = sesion.estaEnHorarioClase();
                     vista.setModoClase(sesion.estaEnHorarioClase());
+                    sesion.registrarAsistencia(esClase);
+
+                    
                     vista.mostrarPantallaDesbloqueada();
                 } else {
                     vista.mostrarMensaje("Credenciales inválidas.");

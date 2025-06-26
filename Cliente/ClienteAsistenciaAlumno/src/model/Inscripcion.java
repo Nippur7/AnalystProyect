@@ -82,7 +82,10 @@ public class Inscripcion  implements java.io.Serializable {
         this.asistencias = asistencias;
     }
 
-
+@Override
+public String toString() {
+    return "[" + curso.getIdcursos() + "] " + curso.getCurso();
+}
 
 
 }
