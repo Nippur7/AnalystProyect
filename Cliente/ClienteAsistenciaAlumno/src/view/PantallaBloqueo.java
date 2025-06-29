@@ -131,9 +131,13 @@ private void inicializarComponentes() {
     java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(this);
     if (window instanceof javax.swing.JFrame) {
         javax.swing.JFrame frame = (javax.swing.JFrame) window;
-        frame.setSize(400, 150);
+        frame.setSize(400, 200);
         frame.setLocation(10, 10);
-        frame.setUndecorated(false);
+       // frame.setUndecorated(false);
+        frame.dispose(); // para poder cambiar undecorated
+        frame.setUndecorated(true);
+        frame.setVisible(true);
+
     }
 
     panel.revalidate();
@@ -155,27 +159,29 @@ private void inicializarComponentes() {
     public void mostrarPantallaBloqueo() {
     txtUsuario.setText("");
     txtPassword.setText("");
+
     txtUsuario.setVisible(true);
     txtPassword.setVisible(true);
     btnLogin.setVisible(true);
-    btnLogin.setEnabled(true);
     btnLogout.setVisible(false);
+
     lblMensaje.setText("");
     lblModo.setText("");
 
-        java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(this);
+    // Restaurar ventana completa
+    java.awt.Window window = javax.swing.SwingUtilities.getWindowAncestor(this);
     if (window instanceof javax.swing.JFrame) {
         javax.swing.JFrame frame = (javax.swing.JFrame) window;
-        frame.dispose();  // Necesario para aplicar cambios en el modo de ventana
+        frame.dispose();
         frame.setUndecorated(true);
-        frame.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setVisible(true);
     }
-
 
     this.revalidate();
     this.repaint();
 }
+
 
 
     public void setLoginAction(ActionListener listener) {

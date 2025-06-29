@@ -12,6 +12,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.sql.Time.*;
+import java.time.Duration;
 import java.util.Calendar;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -23,7 +24,7 @@ import model.DiaSemana;
 public class SesionUsuario {
 
     private Alumno alumno;
-    private LocalDateTime horaInicio;
+    private LocalDateTime horaInicio,horaInicial;
     private LocalDateTime horaFin;
     private Alumno alumnoActual;
     private Inscripcion inscripcionActual;
@@ -134,6 +135,7 @@ public class SesionUsuario {
         }
 
         this.inscripcionActual = seleccionada;
+        this.horaInicio = LocalDateTime.now();
 
         // Determinar si está en horario de clase
         Curso curso = seleccionada.getCurso();
@@ -186,17 +188,19 @@ public class SesionUsuario {
 
 
     public void cerrarSesion() {
-        horaFin = LocalDateTime.now();
-        long minutos = java.time.Duration.between(horaInicio, horaFin).toMinutes();
-
-        // Aquí podrías persistir el registro en la tabla asistencia
-        System.out.println("Alumno ID: " + alumno.getIdAlumno());
-        System.out.println("Sesión cerrada. Duración: " + minutos + " minutos.");
-
-        alumno = null;
-        horaInicio = null;
-        horaFin = null;
+    if (horaInicio != null) {
+        Duration duracion = Duration.between(horaInicio, LocalDateTime.now());
+        System.out.println("Sesión finalizada. Duración: " + duracion.toMinutes() + " minutos.");
+    } else {
+        System.out.println("Hora de inicio de sesión no estaba seteada.");
     }
+
+    // Reset de atributos
+    this.inscripcionActual = null;
+    this.horaInicio = null;
+    this.alumnoActual = null;
+    }
+
 
     public boolean estaEnHorarioClase() {
         // Horario fijo de clase para el prototipo (puede vincularse con la tabla CursoHorario más adelante)
